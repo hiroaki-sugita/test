@@ -1,0 +1,13 @@
+- hosts: testservers
+  gather_facts: no
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Stop service httpd, if started
+      service:
+        name: httpd
+        state: stopped
+
+    - name: remove the Apatch package
+      yum: name=httpd state=absent
