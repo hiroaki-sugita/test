@@ -1,6 +1,5 @@
 - hosts: testservers
-  become: yes
-  become_user: root
+
 
   tasks:
     - name: install the latest version of bind
