@@ -1,0 +1,20 @@
+- hosts: testservers
+  gather_facts: no
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: install the latest version of bind
+      yum: name=bind state=latest
+
+    - name: install the latast version of bind-chroot
+      yum: name=bind-chroot state=latest
+
+    - name: install the latast version of bind-utils
+      yum: name=bind-utils state=latest
+
+    - name: enabled bind auto start
+      service: name=bind state=started enabled=yes
+
+    - name: restart servie bind
+      service: name=bind state=restarted
