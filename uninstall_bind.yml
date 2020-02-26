@@ -1,0 +1,17 @@
+- hosts: testservers
+  gather_facts: no
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Stop service bind, if started
+      service: name=httpd state=stopped
+
+    - name: remove the bind-utils package
+      yum: name=bind-utils state=absent
+
+    - name: remove the bind-chroot package
+      yum: name=bind-chroot state=absent
+
+    - name: remove the bind package
+      yum: name=bind state=absent
