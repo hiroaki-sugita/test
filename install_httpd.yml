@@ -8,13 +8,20 @@
       yum: name=httpd state=latest
 
     - name: enabled httpd auto start
-      service:
-        name=httpd
-        state=started
-        enabled=yes
+      service: name=httpd state=started enabled=yes
+
+    - name: replace httpd.conf
+      replace:
+        dest=/etc/httpd/conf/httpd.conf
+        regexp='^Listen 80$'
+        replace='Listen 8080'
+        backup=yes
 
     - name: restart service httpd
-      service:
-        name=httpd
-        state=restarted
-        
+      service: name=httpd state=restarted
+
+    - name: open 8080 port/tcp
+      firewalld: port=8080/tcp permanent=true state=enabled
+
+    - name: restart firewalld
+      service: name=firewalld state=restarted
